@@ -75,7 +75,7 @@ Resources:
 ### Questions:
 ### Which AWS service does this policy grant you access to?
 ### Does it allow you to create an IAM user, group, policy, or role?
-### Go to https://docs.aws.amazon.com/IAM/latest/UserGuide/ and in the left navigation expand Reference > Policy Reference > Actions, Resources, and Condition Keys. Choose Identity And Access Management. Scroll to the ### Actions Defined by Identity And Access Management list.��Name at least three specific actions that the iam:Get* action allows.
+### Go to https://docs.aws.amazon.com/IAM/latest/UserGuide/ and in the left navigation expand Reference > Policy Reference > Actions, Resources, and Condition Keys. Choose Identity And Access Management. Scroll to the Actions Defined by Identity And Access Management list.��Name at least three specific actions that the iam:Get* action allows.
 
 The Policy grants access to the AWS service called Amazon Elastic Compute Cloud (EC2)
 The policy allows two actions on EC2 instances:
