@@ -2,7 +2,7 @@
 
 <!-- TODO -->
 
-## IAM Quiz
+# IAM Quiz
 ### Which statement describes AWS identity and access Management IAM users ?
 -Every IAM user for an account must have a unique name.
 ### How can you grant the same level of permissions to multiple users within an account ?
@@ -19,7 +19,7 @@
 ### How does identity federation increase security for an application that is built in Amazon Web Services AWS ? 
 -Users can use SSO to access the application through an existing authenticated identity. 
 
-## Networking Quiz
+# Networking Quiz
 ### Which definition describes a virtual private cloud VPC ?
 -A logically isolated virtual network that you define in the AWS Cloud
 ### A company’s VPC has the CIDR block 172.16.0.0/21 (2048 addresses). It has two subnets (A and B). Each subnet must support 100 usable addresses now, but this number is expected to rise to at most 254 usable addresses soon. Which subnet addressing scheme meets the requirements and follows AWS best practices? 
@@ -31,29 +31,8 @@
 ###Several EC2 instances launch in a VPC that has internet access. These instances should not be accessible from the internet, but they must be able to download updates from the internet. How should the instances launch?
 -Without public IP addresses, in a subnet with a default route to a NAT gateway
 
-## Policies evaluation Quiz
+# Policies evaluation Quiz
 ### Question: What actions are allowed for EC2 instances and S3 objects based on this policy? What specific resources are included?
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "AllowVPCAccess",
-      "Effect": "Allow",
-      "Action": [
-        "ec2:DescribeVpcs",
-        "ec2:DescribeSubnets",
-        "ec2:DescribeSecurityGroups"
-      ],
-      "Resource": "*",
-      "Condition": {
-        "StringEquals": {
-          "aws:RequestedRegion": "us-west-2"
-        }
-      }
-    }
-  ]
-}
-
 For EC2 instances:
 ec2:DescribeVpcs: This action allows the user to describe the virtual private clouds (VPCs) in the AWS account.
 ec2:DescribeSubnets: This action allows the user to describe the subnets in the AWS account.
@@ -64,26 +43,6 @@ Resources:
 The policy applies to all resources (denoted by "*"). It doesn't limit the scope to specific resources within EC2 or S3.
 
 ### Question: Under what condition does this policy allow access to VPC-related information? Which AWS region is specified?
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "AllowS3ReadWrite",
-      "Effect": "Allow",
-      "Action": ["s3:GetObject", "s3:PutObject", "s3:ListBucket"],
-      "Resource": [
-        "arn:aws:s3:::example-bucket",
-        "arn:aws:s3:::example-bucket/*"
-      ],
-      "Condition": {
-        "StringLike": {
-          "s3:prefix": ["documents/*", "images/*"]
-        }
-      }
-    }
-  ]
-}
-
 Condition:
 s3:prefix: This condition specifies that the access is allowed only when the S3 object key prefix matches either "documents/" or "images/".
 Effect:
@@ -98,24 +57,6 @@ Resources:
 The policy does not specify any AWS region. Therefore, it applies to all regions where the specified S3 bucket exists.
 
 ### Question: What actions are allowed on the "example-bucket" and its objects based on this policy? What specific prefixes are specified in the condition?
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "AllowIAMUserCreation",
-      "Effect": "Allow",
-      "Action": "iam:CreateUser",
-      "Resource": "arn:aws:iam::123456789012:user/${aws:username}"
-    },
-    {
-      "Sid": "AllowIAMUserDeletion",
-      "Effect": "Allow",
-      "Action": "iam:DeleteUser",
-      "Resource": "arn:aws:iam::123456789012:user/${aws:username}"
-    }
-  ]
-}
-
 iam:CreateUser and iam:DeleteUser. The actions are allowed for IAM users, and the specific IAM user is determined by the variable ${aws:username}.
 Actions:
 iam:CreateUser: Allows creating IAM users.
@@ -125,15 +66,6 @@ Resources:
 The policy doesn't specify any specific S3 bucket or object actions. It solely focuses on IAM user creation and deletion.
 
 ### Question: What actions are allowed for IAM users based on this policy? How are the resource ARNs constructed?
-{
-  "Version": "2012-10-17",
-  "Statement": {
-    "Effect": "Allow",
-    "Action": ["iam:Get*", "iam:List*"],
-    "Resource": "*"
-  }
-}
-
 Actions:
 iam:Get*: Allows all actions that start with "iam:Get". This includes actions like iam:GetUser, iam:GetGroup, iam:GetRole, etc. It allows retrieving information about IAM users, groups, roles, policies, and other related resources.
 iam:List*: Allows all actions that start with "iam:List". This includes actions like iam:ListUsers, iam:ListGroups, iam:ListRoles, etc. It allows listing information about IAM users, groups, roles, policies, and other related resources.
@@ -144,21 +76,6 @@ Resources:
 ### Which AWS service does this policy grant you access to?
 ### Does it allow you to create an IAM user, group, policy, or role?
 ### Go to https://docs.aws.amazon.com/IAM/latest/UserGuide/ and in the left navigation expand Reference > Policy Reference > Actions, Resources, and Condition Keys. Choose Identity And Access Management. Scroll to the ### Actions Defined by Identity And Access Management list.��Name at least three specific actions that the iam:Get* action allows.
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Condition": {
-        "StringEquals": {
-          "ec2:InstanceType": ["t2.micro", "t2.small"]
-        }
-      },
-      "Resource": "arn:aws:ec2:*:*:instance/*",
-      "Action": ["ec2:RunInstances", "ec2:StartInstances"],
-      "Effect": "Deny"
-    }
-  ]
-}
 
 The Policy grants access to the AWS service called Amazon Elastic Compute Cloud (EC2)
 The policy allows two actions on EC2 instances:
@@ -173,10 +90,6 @@ iam:GetRole: Retrieves information about an IAM role.
 ### Questions:
 ### What actions does the policy allow?
 ### Say that the policy included an additional statement object, like this example:
-{
-  "Effect": "Allow",
-  "Action": "ec2:*"
-}
 ### How would the policy restrict the access granted to you by this additional statement?
 ### If the policy included both the statement on the left and the statement in question 2, could you terminate an m3.xlarge instance that existed in the account?
 
