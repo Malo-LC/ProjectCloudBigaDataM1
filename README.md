@@ -1,7 +1,5 @@
 # ProjectCloudBigaDataM1
-
-<!-- TODO -->
-
+## Membres : Baptiste Keunebroek - Enrique Carreterro - Malo Le Corvec
 # IAM Quiz
 ### Which statement describes AWS identity and access Management IAM users ?
 -Every IAM user for an account must have a unique name.
